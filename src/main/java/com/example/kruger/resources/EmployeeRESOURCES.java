@@ -4,6 +4,10 @@ import java.net.URI;
 import com.example.kruger.model.Employee;
 import com.example.kruger.model.Vaccineinfo;
 import com.example.kruger.service.EmployeeService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,4 +103,25 @@ public class EmployeeRESOURCES {
     public List<Employee> getByVaccineType(@PathVariable("vaccineType") String vaccineType) {
         return employeeService.getByVaccineType(vaccineType);
     }
+    
+    //get by vaccine dates
+    @GetMapping("/get/vaccine/dates")
+    public List<Employee> getByVaccineDate(@RequestBody Map<String, String> vaccine) throws ParseException {
+        
+        log.info(vaccine.toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date begin =  sdf.parse(vaccine.get("begin"));
+        Date end =  sdf.parse(vaccine.get("end"));
+
+        log.info("fecha de inicio"+vaccine.get("begin"));
+        log.info("fecha fin"+vaccine.get("end"));
+        return employeeService.getByVaccineDate(begin,end);
+    }
+    
+    //get all employees
+    @GetMapping("/get/all")
+    public List<Employee> getAllEmployees() throws ParseException {
+        return employeeService.getAllEmployees();
+    }
+    
 }

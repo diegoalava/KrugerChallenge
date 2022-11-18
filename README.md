@@ -46,10 +46,10 @@ APIs can be called by both users **(ADMIN,Employee)** depending on their permiss
     "birthDate": "1998-08-13",
     "homeAddress": "Manta aqui estoooooooy",
     "phoneNumber": "0999041806",
-    "vaccinationStatus":"Vacunado"
+    "vaccinationStatus":1
 }
 ```
-Indicating in the "userId" key the identifier of the employee that we want to update.
+Indicating in the "userId" key the identifier of the employee that we want to update, "vaccinationStatus" can be 1 or 0.
 **Return:** Json of the updated entity.
 
 #### 3) Delete employee
@@ -75,6 +75,82 @@ Indicating in the "userId" key the identifier of the employee that we want to up
     "vaccineDate":"2022-06-31"
 }
 ```
+**Return:** Json with info of the added vaccination.
+
+#### 5) Filter by vaccination status
+**Rol:** Admin
+**API:** /api/employee/get/vaccine/status/{status}
+**Method:** GET
+**Path variable:** 1 or 0
+```json
+[
+    {
+        "userId": 1,
+        "dni": 1315302222,
+        "names": "Diego",
+        "lastNames": "Alava",
+        "email": "diego@outlook.com",
+        "birthDate": "1998-08-13T00:00:00.000+00:00",
+        "homeAddress": "Portoviejo",
+        "phoneNumber": "0999041803",
+        "vaccinationStatus": 1
+    },
+    {
+        "userId": 3,
+        "dni": 1315304444,
+        "names": "Washo",
+        "lastNames": "Cedeño",
+        "email": "washo@outlook.com",
+        "birthDate": "1998-08-13T00:00:00.000+00:00",
+        "homeAddress": "Portoviejo",
+        "phoneNumber": "0999041803",
+        "vaccinationStatus": 1
+    }
+]
+```
+**Return:** Json Array with filtered employees.
+
+#### 6) Filter by vaccination type
+**Rol:** Admin
+**API:** /api/employee/get/vaccine/type/{vaccineType}
+**Method:** GET
+**Path variable values:** Sputnik, AstraZeneca, Pfizer or Jhonson&Jhonson
+```json
+[
+    {
+        "userId": 1,
+        "dni": 1315302222,
+        "names": "Mario",
+        "lastNames": "Rodriguez",
+        "email": "mario@outlook.com",
+        "birthDate": "1998-08-13T00:00:00.000+00:00",
+        "homeAddress": "Portoviejo",
+        "phoneNumber": "0999041803",
+        "vaccinationStatus": 1
+    }
+]
+```
+**Return:** Json Array with filtered employees.
+
+#### 7) Filter by vaccination dates
+**Rol:** Admin
+**API:** /api/employee/get/vaccine/dates
+**Method:** GET
+**JSON Body:**
+```json
+{
+    "begin": "2022-02-01",
+    "end": "2022-05-01"
+}
+```
+**Return:** Json Array with filtered employees.
+
+#### 8) Get all employees
+**Rol:** Admin
+**API:** /api/employee/get/all
+**Method:** GET
+**Return:** Json Array with all employees.
+
 
 ## License
 Test Software

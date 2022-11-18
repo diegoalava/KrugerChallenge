@@ -100,7 +100,14 @@ public class EmployeeService {
     }
     
     //get by vaccine dates
-    /*public List<Employee> getByVaccineDate(Date begin, Date end){
-        
-    }*/
+    public List<Employee> getByVaccineDate(Date begin, Date end){
+        List<Employee> employeesList = employeeRepository.getByVaccineDate(begin,end);
+        return employeesList;
+    }
+    
+    //get all employees
+    public List<Employee> getAllEmployees(){
+        List<Employee> employeesList = employeeRepository.findAll();
+        return employeesList;
+    }
 }
