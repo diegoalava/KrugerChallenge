@@ -11,7 +11,7 @@ Application for vaccination status of employees.
 
 
 ## Installation
-Description...
+We need to create the "kruger_alava" database in postgresql, or else configure the **configuration.properties** file
 
 ## User roles
 - Admin
