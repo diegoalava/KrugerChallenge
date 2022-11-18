@@ -12,13 +12,19 @@ Application for vaccination status of employees.
 
 ## Installation
 We need to create the "kruger_alava" database in postgresql, or else configure the **configuration.properties** file
+The project was developed in Apache Netbeans IDE, it is recommended to open and run it in a similar IDE.
 
 ## User roles
-- Admin
-- Employee
+- **ADMIN**
+username: ADMIN
+password: *any*
+
+- **EMPLOYEE**
+username and password automatically generated when the admin registers a new one.
 
 ## API Functionalitys
 APIs can be called by both users **(ADMIN,Employee)** depending on their permissions.
+All requests need to send **Basic Auth username and password**, defined in the **User Roles** section of this document.
 
 #### 1) Add new employee
 **Rol:** Admin  
@@ -151,9 +157,6 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 **Method:** GET  
 **Return:** Json Array with all employees.  
 
-
-## License
-Test Software
 
    [Spring Boot]: <https://spring.io/projects/spring-boot>
    [JPA]: <https://spring.io/projects/spring-data-jpa>
