@@ -21,10 +21,10 @@ Description...
 APIs can be called by both users **(ADMIN,Employee)** depending on their permissions.
 
 #### 1) Add new employee
-**Rol:** Admin
-**API:** /api/employee
-**Method:** POST
-**Body Json:**
+**Rol:** Admin  
+**API:** /api/employee  
+**Method:** POST  
+**Body Json:**  
 ```json
 {
     "dni":"1315308888",
@@ -36,10 +36,10 @@ APIs can be called by both users **(ADMIN,Employee)** depending on their permiss
 **Return:** Json of the added entity.
 
 #### 2) Update employee information
-**Rol:** Admin, Employee
-**API:** /api/employee
-**Method:** PUT
-**Body Json:**
+**Rol:** Admin, Employee  
+**API:** /api/employee  
+**Method:** PUT  
+**Body Json:**  
 ```json
 {
     "userId":1,
@@ -53,10 +53,10 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 **Return:** Json of the updated entity.
 
 #### 3) Delete employee
-**Rol:** Admin
-**API:** /api/employee/delete/{userIdid}
-**Method:** DELETE
-**Return:** Json with the ex userId of the employee and if the execution was correct.
+**Rol:** Admin  
+**API:** /api/employee/delete/{userIdid}  
+**Method:** DELETE  
+**Return:** Json with the ex userId of the employee and if the execution was correct.  
 ```json
 {
     "deleted": true,
@@ -64,11 +64,11 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 }
 ```
 
-#### 4) Add new vaccine information to an employee
-**Rol:** Admin, Employee
-**API:** /api/employee/vaccine/user/{userId}
-**Method:** POST
-**Body Json:**
+#### 4) Add new vaccine information to an employee  
+**Rol:** Admin, Employee  
+**API:** /api/employee/vaccine/user/{userId}  
+**Method:** POST  
+**Body Json:**  
 ```json
 {
     "typeOfVaccine":"Pfizer",
@@ -77,11 +77,11 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 ```
 **Return:** Json with info of the added vaccination.
 
-#### 5) Filter by vaccination status
-**Rol:** Admin
-**API:** /api/employee/get/vaccine/status/{status}
-**Method:** GET
-**Path variable:** 1 or 0
+#### 5) Filter by vaccination status 
+**Rol:** Admin  
+**API:** /api/employee/get/vaccine/status/{status}  
+**Method:** GET  
+**Path variable:** 1 or 0  
 ```json
 [
     {
@@ -110,11 +110,11 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 ```
 **Return:** Json Array with filtered employees.
 
-#### 6) Filter by vaccination type
-**Rol:** Admin
-**API:** /api/employee/get/vaccine/type/{vaccineType}
-**Method:** GET
-**Path variable values:** Sputnik, AstraZeneca, Pfizer or Jhonson&Jhonson
+#### 6) Filter by vaccination type  
+**Rol:** Admin  
+**API:** /api/employee/get/vaccine/type/{vaccineType}  
+**Method:** GET  
+**Path variable values:** Sputnik, AstraZeneca, Pfizer or Jhonson&Jhonson  
 ```json
 [
     {
@@ -133,10 +133,10 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 **Return:** Json Array with filtered employees.
 
 #### 7) Filter by vaccination dates
-**Rol:** Admin
-**API:** /api/employee/get/vaccine/dates
-**Method:** GET
-**JSON Body:**
+**Rol:** Admin  
+**API:** /api/employee/get/vaccine/dates  
+**Method:** GET  
+**JSON Body:**  
 ```json
 {
     "begin": "2022-02-01",
@@ -146,10 +146,10 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 **Return:** Json Array with filtered employees.
 
 #### 8) Get all employees
-**Rol:** Admin
-**API:** /api/employee/get/all
-**Method:** GET
-**Return:** Json Array with all employees.
+**Rol:** Admin  
+**API:** /api/employee/get/all  
+**Method:** GET  
+**Return:** Json Array with all employees.  
 
 
 ## License
