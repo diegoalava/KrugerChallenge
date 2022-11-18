@@ -18,7 +18,7 @@ public class Response {
         this.info = info;
         this.status = status;
     }
-    
+
     public Object getInfo() {
         return info;
     }

@@ -24,13 +24,12 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "employee")
 public class Employee {
 
-    
     //Info for a new employee
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "dni", length = 10, nullable = false, unique=true)
+    @Column(name = "dni", length = 10, nullable = false, unique = true)
     private Long dni;
 
     @Column(name = "names", nullable = false)
@@ -39,16 +38,16 @@ public class Employee {
     @Column(name = "lastNames", nullable = false)
     private String lastNames;
 
-    @Column(name = "email", nullable = false, unique=true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-    
+
     //Info available for updates
     private Date birthDate;
     private String homeAddress;
     private String phoneNumber;
     @Column(name = "vaccination_status", length = 1)
     private int vaccinationStatus;
-    
+
     public Employee() {
     }
 

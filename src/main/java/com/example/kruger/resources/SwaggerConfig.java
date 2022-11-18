@@ -20,26 +20,25 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-	public Docket apiDocket() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.example.kruger.resources"))
-				.paths(PathSelectors.any())
-				.build()
-				.apiInfo(getApiInfo())
-				;
-	}
-	
-	private ApiInfo getApiInfo() {
-		return new ApiInfo(
-				"Kruger Challenge by Diego Alava",
-				"API documentation available in the application.",
-				"1.0",
-				"https://krugercorp.com",
-				new Contact("Diego Álava", "", "vectress@outlook.com"),
-				"LICENSE",
-				"LICENSE URL",
-				Collections.emptyList()
-				); 
-	}
+    public Docket apiDocket() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.kruger.resources"))
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(getApiInfo());
+    }
+
+    private ApiInfo getApiInfo() {
+        return new ApiInfo(
+                "Kruger Challenge by Diego Alava",
+                "API documentation available in the application.",
+                "1.0",
+                "https://krugercorp.com",
+                new Contact("Diego Álava", "", "vectress@outlook.com"),
+                "LICENSE",
+                "LICENSE URL",
+                Collections.emptyList()
+        );
+    }
 }

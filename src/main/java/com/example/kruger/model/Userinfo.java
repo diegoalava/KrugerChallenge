@@ -17,16 +17,16 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity(name="userinfo")
 @Table(name = "userinfo")
 public class Userinfo {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String username;
     private String password;
-    
+
     @OneToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Employee employee;
 
@@ -35,7 +35,7 @@ public class Userinfo {
         this.password = password;
         this.employee = employee;
     }
-    
+
     public Long getId() {
         return id;
     }

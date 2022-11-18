@@ -31,34 +31,32 @@ public class EmployeeService {
     private UserinfoRepository userinfoRepository;
     @Autowired
     private VaccineinfoRepository vaccineinfoRepository;
-    
-    
+
     //save a new employee method
-    public Employee saveNewEmployee(Employee emp){
+    public Employee saveNewEmployee(Employee emp) {
         Employee insertedEmployee = employeeRepository.save(emp);
         String username = insertedEmployee.getEmail();
         String password = insertedEmployee.getDni().toString();
-        
+
         Userinfo userinfo = new Userinfo(username, password, insertedEmployee);
         userinfoRepository.save(userinfo);
-        
+
         return insertedEmployee;
     }
-    
+
     //update an employee info
-    public Employee updateEmployeeInfo(Employee emp){
-       Employee thisEmployee = employeeRepository.getById(emp.getUserId());
-       thisEmployee.setBirthDate(emp.getBirthDate());
-       thisEmployee.setHomeAddress(emp.getHomeAddress());
-       thisEmployee.setPhoneNumber(emp.getPhoneNumber());
-       thisEmployee.setVaccinationStatus(emp.getVaccinationStatus());
-       
-       
-       log.info(thisEmployee.getHomeAddress());
-       
-       return employeeRepository.save(thisEmployee);
+    public Employee updateEmployeeInfo(Employee emp) {
+        Employee thisEmployee = employeeRepository.getById(emp.getUserId());
+        thisEmployee.setBirthDate(emp.getBirthDate());
+        thisEmployee.setHomeAddress(emp.getHomeAddress());
+        thisEmployee.setPhoneNumber(emp.getPhoneNumber());
+        thisEmployee.setVaccinationStatus(emp.getVaccinationStatus());
+
+        log.info(thisEmployee.getHomeAddress());
+
+        return employeeRepository.save(thisEmployee);
     }
-    
+
     //datele an existing employee
     public boolean deleteEmployee(Long userId) {
         try {
@@ -68,13 +66,13 @@ public class EmployeeService {
             return false;
         }
     }
-    
+
     //add Vaccine Info
     public Map<String, Object> addVaccine(Vaccineinfo vaccine, Long userId) {
         Employee thisEmployee = employeeRepository.getById(userId);
         Vaccineinfo vaccineToInsert = new Vaccineinfo(vaccine.getTypeOfVaccine(), vaccine.getVaccineDate(), thisEmployee);
         Map<String, Object> response = new HashMap<String, Object>();
-        
+
         try {
 
             vaccineinfoRepository.save(vaccineToInsert);
@@ -88,31 +86,31 @@ public class EmployeeService {
             return response;
         }
     }
-    
+
     //get by vaccine status
     public List<Employee> getByVaccineStatus(int status) {
         List<Employee> employeesList = employeeRepository.getByVaccineStatus(status);
         return employeesList;
     }
-    
+
     //get by vaccine type
     public List<Employee> getByVaccineType(String vaccineType) {
         List<Employee> employeesList = employeeRepository.getByVaccineType(vaccineType);
         return employeesList;
     }
-    
+
     //get by vaccine dates
-    public List<Employee> getByVaccineDate(Date begin, Date end){
-        List<Employee> employeesList = employeeRepository.getByVaccineDate(begin,end);
+    public List<Employee> getByVaccineDate(Date begin, Date end) {
+        List<Employee> employeesList = employeeRepository.getByVaccineDate(begin, end);
         return employeesList;
     }
-    
+
     //get all employees
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() {
         List<Employee> employeesList = employeeRepository.findAll();
         return employeesList;
     }
-    
+
     //employee exists by username and password
     public String getRol(String authorization) throws IOException {
 
@@ -125,11 +123,11 @@ public class EmployeeService {
 
         log.info(username);
         log.info(password);
-             
-        if(username.equals("ADMIN")){
+
+        if (username.equals("ADMIN")) {
             return "ADMIN";
         }
-        
+
         List<Employee> employeesList = employeeRepository.employeeExists(username, password);
 
         if (employeesList.isEmpty()) {
@@ -138,6 +136,4 @@ public class EmployeeService {
             return "EMPLOYEE";
         }
     }
-    
-    
 }

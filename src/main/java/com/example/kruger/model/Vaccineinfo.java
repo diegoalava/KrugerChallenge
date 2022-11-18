@@ -20,16 +20,16 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity(name="vaccineinfo")
 @Table(name = "vaccineinfo")
 public class Vaccineinfo {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String typeOfVaccine;
     private Date vaccineDate;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userId",referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employee;
 
@@ -70,5 +70,5 @@ public class Vaccineinfo {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-    
+
 }

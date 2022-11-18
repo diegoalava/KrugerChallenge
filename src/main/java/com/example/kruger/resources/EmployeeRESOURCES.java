@@ -40,11 +40,10 @@ import sun.misc.BASE64Decoder;
 @RequestMapping("/api/employee")
 @Slf4j
 public class EmployeeRESOURCES {
-    
+
     @Autowired
     private EmployeeService employeeService;
-     
-    
+
     //Add new Employee -Admin
     @PostMapping
     private ResponseEntity<Response> addNewOne(@RequestBody Employee employee, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
@@ -54,13 +53,13 @@ public class EmployeeRESOURCES {
         try {
             if (employeeService.getRol(authorization).equals("ADMIN")) {
                 Employee anEmployee = employeeService.saveNewEmployee(employee);
-                
+
                 BodyToResponse.setInfo(anEmployee);
                 BodyToResponse.setStatus(HttpStatus.CREATED);
                 return ResponseEntity.status(HttpStatus.CREATED).body(BodyToResponse);
-                
+
             } else {
-                
+
                 information.put("exception", "There are no permissions to make this request");
                 BodyToResponse.setInfo(information);
                 BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
@@ -73,7 +72,7 @@ public class EmployeeRESOURCES {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
     //Update Employee -Admin,employee
     @PutMapping
     private ResponseEntity<Response> updateMyInfo(@RequestBody Employee employee, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
@@ -82,15 +81,14 @@ public class EmployeeRESOURCES {
 
         try {
             if (employeeService.getRol(authorization).equals("ADMIN") || employeeService.getRol(authorization).equals("EMPLOYEE")) {
-                
+
                 Employee anEmployee = employeeService.updateEmployeeInfo(employee);
                 BodyToResponse.setInfo(anEmployee);
                 BodyToResponse.setStatus(HttpStatus.OK);
                 return ResponseEntity.status(HttpStatus.OK).body(BodyToResponse);
-                
-                
+
             } else {
-                
+
                 information.put("exception", "There are no permissions to make this request");
                 BodyToResponse.setInfo(information);
                 BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
@@ -98,14 +96,14 @@ public class EmployeeRESOURCES {
             }
 
         } catch (Exception ex) {
-            
+
             information.put("exception", ex.getCause().getCause().getLocalizedMessage());
             BodyToResponse.setInfo(information);
             BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
     //Delete Employee -Admin
     @DeleteMapping("/delete/{id}")
     private ResponseEntity<Response> deleteAnEmployee(@PathVariable("id") Long userId, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
@@ -114,15 +112,15 @@ public class EmployeeRESOURCES {
 
         try {
             if (employeeService.getRol(authorization).equals("ADMIN")) {
-                
-                information.put("exUserId",userId);
+
+                information.put("exUserId", userId);
                 information.put("deleted", employeeService.deleteEmployee(userId));
                 BodyToResponse.setInfo(information);
                 BodyToResponse.setStatus(HttpStatus.OK);
                 return ResponseEntity.status(HttpStatus.OK).body(BodyToResponse);
-                
-            }else{
-                
+
+            } else {
+
                 information.put("exception", "There are no permissions to make this request");
                 BodyToResponse.setInfo(information);
                 BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
@@ -130,45 +128,44 @@ public class EmployeeRESOURCES {
             }
 
         } catch (Exception ex) {
-            
+
             information.put("exception", ex.getCause().getCause().getLocalizedMessage());
             BodyToResponse.setInfo(information);
             BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
     //Add Vaccine Info
     @PostMapping("/vaccine/user/{id}")
     private ResponseEntity<Response> addVaccine(@RequestBody Vaccineinfo vaccine, @PathVariable("id") Long userId, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) throws IOException {
         Response BodyToResponse = new Response();
         Map<String, Object> information = new HashMap<String, Object>();
-        
-        
+
         if (employeeService.getRol(authorization).equals("ADMIN") || employeeService.getRol(authorization).equals("EMPLOYEE")) {
-            
+
             information = employeeService.addVaccine(vaccine, userId);
             if (information.containsKey("exception")) {
-                
-                BodyToResponse.setInfo(information);
-                BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
-                
-            }
-            
-                BodyToResponse.setInfo(information);
-                BodyToResponse.setStatus(HttpStatus.OK);
-                return ResponseEntity.status(HttpStatus.OK).body(BodyToResponse);
 
-        }else{
-            
-                information.put("exception", "There are no permissions to make this request");
                 BodyToResponse.setInfo(information);
                 BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
+
+            }
+
+            BodyToResponse.setInfo(information);
+            BodyToResponse.setStatus(HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(BodyToResponse);
+
+        } else {
+
+            information.put("exception", "There are no permissions to make this request");
+            BodyToResponse.setInfo(information);
+            BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
     //get by vaccine status
     @GetMapping("/get/vaccine/status/{status}")
     public ResponseEntity<Response> getByVaccineStatus(@PathVariable("status") int status, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
@@ -197,13 +194,13 @@ public class EmployeeRESOURCES {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
     //get by vaccine type
     @GetMapping("/get/vaccine/type/{vaccineType}")
     public ResponseEntity<Response> getByVaccineType(@PathVariable("vaccineType") String vaccineType, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
         Response BodyToResponse = new Response();
         Map<String, Object> information = new HashMap<String, Object>();
-        
+
         try {
             if (employeeService.getRol(authorization).equals("ADMIN")) {
                 BodyToResponse.setInfo(employeeService.getByVaccineType(vaccineType));
@@ -226,20 +223,20 @@ public class EmployeeRESOURCES {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
     //get by vaccine dates
     @GetMapping("/get/vaccine/dates")
     public ResponseEntity<Response> getByVaccineDate(@RequestBody Map<String, String> vaccine, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) throws ParseException {
         Response BodyToResponse = new Response();
         Map<String, Object> information = new HashMap<String, Object>();
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date begin =  sdf.parse(vaccine.get("begin"));
-        Date end =  sdf.parse(vaccine.get("end"));
+        Date begin = sdf.parse(vaccine.get("begin"));
+        Date end = sdf.parse(vaccine.get("end"));
 
         try {
             if (employeeService.getRol(authorization).equals("ADMIN")) {
-                BodyToResponse.setInfo(employeeService.getByVaccineDate(begin,end));
+                BodyToResponse.setInfo(employeeService.getByVaccineDate(begin, end));
                 BodyToResponse.setStatus(HttpStatus.OK);
                 return ResponseEntity.status(HttpStatus.OK).body(BodyToResponse);
 
@@ -258,10 +255,9 @@ public class EmployeeRESOURCES {
             BodyToResponse.setStatus(HttpStatus.BAD_REQUEST);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
-        
-       
+
     }
-    
+
     //get all employees
     @GetMapping("/get/all")
     public ResponseEntity<Response> getAllEmployees(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) throws ParseException {
@@ -290,5 +286,5 @@ public class EmployeeRESOURCES {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BodyToResponse);
         }
     }
-    
+
 }
