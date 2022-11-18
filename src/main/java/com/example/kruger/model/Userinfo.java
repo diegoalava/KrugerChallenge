@@ -14,7 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
  *
  * @author Diego.Alava
  */
-@Entity
+@Entity(name="userinfo")
 @Table(name = "userinfo")
 public class Userinfo {
     

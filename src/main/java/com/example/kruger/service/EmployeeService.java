@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.example.kruger.repository.EmployeeRepository;
 import com.example.kruger.repository.UserinfoRepository;
 import com.example.kruger.repository.VaccineinfoRepository;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
+import sun.misc.BASE64Decoder;
 
 /**
  *
@@ -110,4 +112,32 @@ public class EmployeeService {
         List<Employee> employeesList = employeeRepository.findAll();
         return employeesList;
     }
+    
+    //employee exists by username and password
+    public String getRol(String authorization) throws IOException {
+
+        String dataUser = authorization.substring(6).trim();
+        BASE64Decoder dec = new BASE64Decoder();
+        String userPass = new String(dec.decodeBuffer(dataUser));
+        String[] a = userPass.split(":");
+        String username = a[0];
+        String password = a[1];
+
+        log.info(username);
+        log.info(password);
+             
+        if(username.equals("ADMIN")){
+            return "ADMIN";
+        }
+        
+        List<Employee> employeesList = employeeRepository.employeeExists(username, password);
+
+        if (employeesList.isEmpty()) {
+            return "NO";
+        } else {
+            return "EMPLOYEE";
+        }
+    }
+    
+    
 }
