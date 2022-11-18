@@ -33,10 +33,10 @@ All requests need to send **Basic Auth username and password**, defined in the *
 **Body Json:**  
 ```json
 {
-    "dni":"1315308888",
+    "dni":"1315309482",
     "names":"Diego",
     "lastNames":"Alava",
-    "email":"123@outlook.com"
+    "email":"diego@outlook.com"
 }
 ```
 **Return:** Json of the added entity.
@@ -50,7 +50,7 @@ All requests need to send **Basic Auth username and password**, defined in the *
 {
     "userId":1,
     "birthDate": "1998-08-13",
-    "homeAddress": "Manta aqui estoooooooy",
+    "homeAddress": "Manta",
     "phoneNumber": "0999041806",
     "vaccinationStatus":1
 }
@@ -92,12 +92,12 @@ Indicating in the "userId" key the identifier of the employee that we want to up
 [
     {
         "userId": 1,
-        "dni": 1315302222,
+        "dni": 1315309482,
         "names": "Diego",
         "lastNames": "Alava",
         "email": "diego@outlook.com",
         "birthDate": "1998-08-13T00:00:00.000+00:00",
-        "homeAddress": "Portoviejo",
+        "homeAddress": "Manta",
         "phoneNumber": "0999041803",
         "vaccinationStatus": 1
     },
